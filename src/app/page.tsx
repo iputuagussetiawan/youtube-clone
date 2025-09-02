@@ -4,8 +4,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div>
-      <h1 className="text-3xl font-bold text-rose-500">Hallow World</h1>
-      <Button variant="destructive">Button</Button>
+      <Image src="images/logo.svg" alt="logo" width={50} height={50} />
     </div>
   );
 }
