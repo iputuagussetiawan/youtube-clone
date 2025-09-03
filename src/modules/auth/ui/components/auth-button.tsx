@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { UserCircleIcon } from "lucide-react"
-import { UserButton, SignInButton, SignOutButton, SignedIn, SignedOut} from "@clerk/nextjs"
+import { UserButton, SignInButton, SignedIn, SignedOut} from "@clerk/nextjs"
 
 export const AuthButton=()=>{
     //TODO - add auth functionality
