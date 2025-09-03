@@ -3,6 +3,7 @@
 import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { HistoryIcon, ListVideoIcon, PlaySquareIcon, ThumbsUpIcon } from "lucide-react";
 import Link from "next/link";
+import { useAuth, useClerk } from "@clerk/nextjs";
 
 
 const items=[
@@ -21,10 +22,13 @@ const items=[
     {
         title:"All Playlists",
         url:"/playlists",
-        icon:ListVideoIcon
+        icon:ListVideoIcon,
+        auth:true
     },
 ];
 const PersonalSidebarSection = () => {
+    const {isSignedIn}=useAuth();
+    const clerk = useClerk();
     return (
         <SidebarGroup>
             <SidebarGroupLabel>Personal</SidebarGroupLabel>
@@ -36,7 +40,12 @@ const PersonalSidebarSection = () => {
                                 tooltip={item.title}
                                 asChild
                                 isActive={false}
-                                onClick={() => {}}
+                                onClick={(e) => {
+                                    if(!isSignedIn && item.auth){
+                                        e.preventDefault()
+                                        return clerk.openSignIn()
+                                    }
+                                }}
                             >
                                 <Link href={item.url} className="flex items-center gap-4">
                                     <item.icon/>
