@@ -9,6 +9,7 @@ export const appRouter = createTRPCRouter({
     )
     .query((opts) => {
         // throw new TRPCError({ code: "BAD_REQUEST" });
+        console.log({fromcontext: opts.ctx.clerkUserId});
         return {
             greeting: `hello ${opts.input.text}`,
         };
