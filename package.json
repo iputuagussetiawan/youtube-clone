@@ -10,7 +10,7 @@
     "dbstudio": "npx drizzle-kit studio",
     "dbpush": "npx drizzle-kit push",
     "dev:all": "concurrently \"pnpm run dev:webhook\" \"pnpm run dev\"",
-    "dev:webhook": "ngrok http --domain=tightly-chief-louse.ngrok-free.app 3000"
+    "dev:webhook": "ngrok http --url=ace-macaque-vocal.ngrok-free.app 3000"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.31.8",
