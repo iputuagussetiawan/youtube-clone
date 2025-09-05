@@ -1,10 +1,10 @@
-import { trpc } from "@/trpc/client";
+import { trpc } from "@/trpc/server";
 
-export default function Home() {
-  const {data}= trpc.hello.useQuery({text: "hello world from TRPC"});
+export default async function Home() {
+  const data= await trpc.hello({text:"from TRPC Server"})
   return (
     <div>
-      <h1>TRPC Say : {data?.greeting}</h1>
+      <h1>TRPC Say : {data.greeting}</h1>
     </div>
   );
 }
