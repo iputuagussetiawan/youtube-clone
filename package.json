@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "dbstudio": "npx drizzle-kit studio",
-    "dbpush": "npx drizzle-kit push"
+    "dbpush": "npx drizzle-kit push",
+    "dev:all": "concurrently \"pnpm run dev:webhook\" \"pnpm run dev\"",
+    "dev:webhook": "ngrok http --url=ace-macaque-vocal.ngrok-free.app 3000"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.31.8",
@@ -43,6 +45,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "concurrently": "^9.2.1",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.2",
     "drizzle-orm": "^0.44.5",
@@ -58,6 +61,7 @@
     "react-resizable-panels": "^3.0.5",
     "recharts": "2.15.4",
     "sonner": "^2.0.7",
+    "svix": "^1.76.0",
     "tailwind-merge": "^3.3.1",
     "vaul": "^1.1.2",
     "zod": "^4.1.5"
