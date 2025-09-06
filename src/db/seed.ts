@@ -11,15 +11,12 @@ async function main() {
     try {
         console.log('🧹 Cleaning up...');
         await db.delete(categories); // deletes all rows
-
         console.log('🌱 Inserting categories...');
         const values = dataCategories.map((name) => ({
-        name,
-        description: `Video related to ${name.toLowerCase()}`,
+            name,
+            description: `Video related to ${name.toLowerCase()}`,
         }));
-
         await db.insert(categories).values(values);
-
         console.log('✅ Seeding completed!');
     } catch (err) {
         console.error('❌ Seeding failed:', err);
