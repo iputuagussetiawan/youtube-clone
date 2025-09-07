@@ -3,8 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import { Carousel, CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel";
-import { use, useEffect, useState } from "react";
-import { set } from "react-hook-form";
+import { useEffect, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 
 interface FilterCarouselProps {

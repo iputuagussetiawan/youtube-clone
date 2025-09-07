@@ -2,9 +2,7 @@ import { SidebarHeader, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import UserAvatar from "@/components/user-avatar";
 import { useUser } from "@clerk/nextjs";
-import { Sidebar } from "lucide-react";
 import Link from "next/link";
-import { use } from "react";
 
 export const StudioSidebarHeader = () => {
     const {user}=useUser();
