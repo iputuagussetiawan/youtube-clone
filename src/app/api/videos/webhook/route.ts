@@ -6,7 +6,6 @@ import {
     VideoAssetReadyWebhookEvent,
     VideoAssetTrackReadyWebhookEvent
 } from "@mux/mux-node/resources/webhooks";
-import { th } from "zod/v4/locales";
 import { mux } from "@/lib/mux";
 import { db } from "@/db";
 import { videos } from "@/db/schema";
