@@ -3,11 +3,14 @@
 import InfiniteScroll from "@/components/infinite-scroll";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DEFAULT_LIMIT } from "@/constant";
+import { snakeCaseToTitle } from "@/lib/utils";
 import VideoThumbnail from "@/modules/videos/ui/components/video-thumbnail";
 import { trpc } from "@/trpc/client"
 import Link from "next/link";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import {format} from "date-fns";
+import { Globe2Icon, LockIcon } from "lucide-react";
 
 export const VideosSection = () => {
     return (
@@ -62,15 +65,22 @@ const VideosSectionSuspense = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            visibility
-                                        </TableCell>
-                                        <TableCell>
                                             <div className="flex items-center">
-                                                {video.muxStatus}
+                                                {video.visibility ==="private"?(
+                                                    <LockIcon className="text-muted-foreground mr-2" />
+                                                ):(
+                                                    <Globe2Icon className="text-muted-foreground mr-2" />
+                                                )}
+                                                {snakeCaseToTitle(video.visibility)}
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            Date
+                                            <div className="flex items-center">
+                                                {snakeCaseToTitle(video.muxStatus || "error")}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="text-sm truncate">
+                                            {format(new Date(video.createdAt), "d MMM yyyy")}
                                         </TableCell>
                                         <TableCell className="text-right">
                                             Views
