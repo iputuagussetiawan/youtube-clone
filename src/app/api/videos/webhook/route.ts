@@ -108,8 +108,6 @@ export const POST=async (request:Request)=>{
             await db.delete(videos).where(eq(videos.muxUploadId,data.upload_id));
             break;
         }
-
-
         case "video.asset.track.ready":{
             const data=payload.data as VideoAssetTrackReadyWebhookEvent["data"] & {
                 asset_id:string
