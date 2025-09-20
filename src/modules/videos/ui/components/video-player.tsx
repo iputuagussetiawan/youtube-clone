@@ -1,8 +1,8 @@
-"use client"
-import React from 'react'
-import MuxPlayer from '@mux/mux-player-react'
-import { on } from 'events';
-import { THUMBNAIL_FALLBACK } from '../../constants';
+"use client";
+import React from "react";
+import MuxPlayer from "@mux/mux-player-react";
+import { on } from "events";
+import { THUMBNAIL_FALLBACK } from "../../constants";
 
 interface VideoPlayerProps {
     playbackId?: string | null | undefined;
@@ -14,21 +14,21 @@ const VideoPlayer = ({
     playbackId,
     thumbnailUrl,
     autoPlay,
-    onPlay
-}:VideoPlayerProps) => {
+    onPlay,
+}: VideoPlayerProps) => {
     // if(!playbackId) return null
     return (
-        <MuxPlayer 
-            playbackId={playbackId || ""} 
+        <MuxPlayer
+            playbackId={playbackId || ""}
             onPlay={onPlay}
             poster={thumbnailUrl || THUMBNAIL_FALLBACK}
             playerInitTime={0}
             autoPlay={autoPlay}
             thumbnailTime={0}
-            className='w-full h-full object-contain'
-            accentColor='#ff2056'
+            className="w-full h-full object-contain"
+            accentColor="#ff2056"
         />
-    )
-}
+    );
+};
 
-export default VideoPlayer
+export default VideoPlayer;

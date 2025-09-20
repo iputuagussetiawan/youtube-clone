@@ -10,40 +10,40 @@ interface InfiniteScrollProps {
 }
 
 const InfiniteScroll = ({
-    isManual=false,
+    isManual = false,
     hasNextPage,
     isFetchingNextPage,
-    fetchNextPage
+    fetchNextPage,
 }: InfiniteScrollProps) => {
-    const {targetRef, isIntersecting}=useIntersectionObserver({
+    const { targetRef, isIntersecting } = useIntersectionObserver({
         threshold: 0.5,
-        rootMargin:"100px"
+        rootMargin: "100px",
     });
 
     useEffect(() => {
-        if(isIntersecting && hasNextPage && !isFetchingNextPage && !isManual ){
+        if (isIntersecting && hasNextPage && !isFetchingNextPage && !isManual) {
             fetchNextPage();
         }
-    },[isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage]);
+    }, [isIntersecting, hasNextPage, isFetchingNextPage, fetchNextPage]);
     return (
         <div className="flex flex-col items-center gap-4 p-4">
             <div ref={targetRef} className="h-1">
-                {hasNextPage?(
+                {hasNextPage ? (
                     <Button
                         variant={"secondary"}
                         disabled={!hasNextPage || isFetchingNextPage}
-                        onClick={()=>fetchNextPage()}
+                        onClick={() => fetchNextPage()}
                     >
-                        {isFetchingNextPage?"Loading...":"Load More"}
+                        {isFetchingNextPage ? "Loading..." : "Load More"}
                     </Button>
-                ):(
+                ) : (
                     <p className="text-xs text-muted-foreground">
                         You have reached the end of the list
                     </p>
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default InfiniteScroll
+export default InfiniteScroll;

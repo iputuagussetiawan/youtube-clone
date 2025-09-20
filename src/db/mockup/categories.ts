@@ -21,5 +21,5 @@ export const dataCategories = [
     "Talk Show",
     "Thriller",
     "War",
-    "Western"
+    "Western",
 ];
