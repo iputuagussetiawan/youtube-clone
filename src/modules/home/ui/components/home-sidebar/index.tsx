@@ -1,10 +1,10 @@
-import { Sidebar, SidebarContent } from "@/components/ui/sidebar"
-import MainSidebarSection from "./main-sidebar-section"
-import { Separator } from "@/components/ui/separator"
-import PersonalSidebarSection from "./personal-sidebar-section"
+import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
+import MainSidebarSection from "./main-sidebar-section";
+import { Separator } from "@/components/ui/separator";
+import PersonalSidebarSection from "./personal-sidebar-section";
 
-export const HomeSidebar=()=>{
-    return(
+export const HomeSidebar = () => {
+    return (
         <Sidebar className="pt-16 z-40 border-none" collapsible="icon">
             <SidebarContent className="bg-background">
                 <MainSidebarSection />
@@ -12,5 +12,5 @@ export const HomeSidebar=()=>{
                 <PersonalSidebarSection />
             </SidebarContent>
         </Sidebar>
-    )
-}
+    );
+};

@@ -1,15 +1,11 @@
-import { HomeLayout } from '@/modules/home/ui/layouts/home-layout'
-import React from 'react'
+import { HomeLayout } from "@/modules/home/ui/layouts/home-layout";
+import React from "react";
 
 interface LayoutProps {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
-const layout = ({children}: LayoutProps) => {
-    return (
-        <HomeLayout>
-            {children}
-        </HomeLayout>
-    )
-}
+const layout = ({ children }: LayoutProps) => {
+    return <HomeLayout>{children}</HomeLayout>;
+};
 
-export default layout
+export default layout;

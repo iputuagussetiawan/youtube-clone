@@ -25,16 +25,16 @@ const categoryName = [
     "Talk Show",
     "Thriller",
     "War",
-    "Western"
+    "Western",
 ];
 
-async function main(){
+async function main() {
     console.log("Seeding Categories");
     try {
-        const values=categoryName.map((name)=>({
+        const values = categoryName.map((name) => ({
             name,
-            description:`Video related to ${name.toLowerCase()}`,
-        }))
+            description: `Video related to ${name.toLowerCase()}`,
+        }));
         await db.insert(categories).values(values);
         console.log("Categories seeded successfully");
     } catch (error) {
@@ -43,4 +43,4 @@ async function main(){
     }
 }
 
-main()  
+main();

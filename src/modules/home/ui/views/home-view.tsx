@@ -1,13 +1,13 @@
-import { CategoriesSection } from '../sections/categories-section'
+import { CategoriesSection } from "../sections/categories-section";
 interface HomeViewProps {
-    categoryId?:string
+    categoryId?: string;
 }
-const HomeView = ({categoryId}:HomeViewProps) => {
+const HomeView = ({ categoryId }: HomeViewProps) => {
     return (
-        <div className='max-w-[2400px] mx-auto mb-10 px-4 pt-2.5 flex flex-col gap-y-6'>
-            <CategoriesSection categoryId={categoryId}/>
+        <div className="max-w-[2400px] mx-auto mb-10 px-4 pt-2.5 flex flex-col gap-y-6">
+            <CategoriesSection categoryId={categoryId} />
         </div>
-    )
-}
+    );
+};
 
-export default HomeView
+export default HomeView;

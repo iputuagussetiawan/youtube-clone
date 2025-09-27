@@ -1,11 +1,13 @@
-import React from 'react'
+import React from "react";
 interface layoutProps {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
-const AuthLayout = ({children}: layoutProps) => {
+const AuthLayout = ({ children }: layoutProps) => {
     return (
-        <div className='min-h-screen flex items-center justify-center'>{children}</div>
-    )
-}
+        <div className="min-h-screen flex items-center justify-center">
+            {children}
+        </div>
+    );
+};
 
-export default AuthLayout
+export default AuthLayout;

@@ -3,20 +3,19 @@ import { HydrateClient, trpc } from "@/trpc/server";
 export const dynamic = "force-dynamic";
 
 interface PageHomeProps {
-  searchParams:Promise<{
-    categoryId?:string
-  }>
+    searchParams: Promise<{
+        categoryId?: string;
+    }>;
 }
 
+const PageHome = async ({ searchParams }: PageHomeProps) => {
+    const { categoryId } = await searchParams;
+    void trpc.categories.getMany.prefetch();
+    return (
+        <HydrateClient>
+            <HomeView categoryId={categoryId} />
+        </HydrateClient>
+    );
+};
 
-const PageHome=async({searchParams}:PageHomeProps)=> {
-  const {categoryId}=await searchParams
-  void trpc.categories.getMany.prefetch();
-  return (
-    <HydrateClient>
-      <HomeView categoryId={categoryId} />
-    </HydrateClient>
-  );
-}
-
-export default PageHome
+export default PageHome;

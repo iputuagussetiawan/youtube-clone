@@ -1,11 +1,10 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { UserCircleIcon } from "lucide-react"
-import { UserButton, SignInButton, SignedIn, SignedOut} from "@clerk/nextjs"
+"use client";
+import { Button } from "@/components/ui/button";
+import { UserCircleIcon } from "lucide-react";
+import { UserButton, SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
-export const AuthButton=()=>{
-  
-    return(
+export const AuthButton = () => {
+    return (
         <>
             <SignedIn>
                 <UserButton>
@@ -14,11 +13,11 @@ export const AuthButton=()=>{
                         <UserButton.Link
                             label="Studio"
                             href="/studio"
-                            labelIcon={<UserCircleIcon className="mr-1 size-4" />}
-                        >
-
-                        </UserButton.Link>
-                        <UserButton.Action label="manageAccount"/>
+                            labelIcon={
+                                <UserCircleIcon className="mr-1 size-4" />
+                            }
+                        ></UserButton.Link>
+                        <UserButton.Action label="manageAccount" />
                     </UserButton.MenuItems>
                 </UserButton>
                 {/* TODO
@@ -36,6 +35,5 @@ export const AuthButton=()=>{
                 </SignInButton>
             </SignedOut>
         </>
-    )
-
-}
+    );
+};

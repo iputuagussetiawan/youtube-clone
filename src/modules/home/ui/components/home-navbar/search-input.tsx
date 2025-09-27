@@ -1,9 +1,9 @@
-import { SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react";
 
-export const SearchInput=()=>{
+export const SearchInput = () => {
     //Todo : add search functionality
-    return(
-        <form className="flex w-full max-w-[600px]"> 
+    return (
+        <form className="flex w-full max-w-[600px]">
             <div className="relative w-full">
                 <input
                     type="text"
@@ -15,10 +15,10 @@ export const SearchInput=()=>{
             </div>
             <button
                 type="submit"
-                className="px-5 py-2.5 bg-gray-100 border border-l-0 rounded-r-full hover:bg-gray-200 disable:opacity-50 disabled:cursor-not-allowed"    
+                className="px-5 py-2.5 bg-gray-100 border border-l-0 rounded-r-full hover:bg-gray-200 disable:opacity-50 disabled:cursor-not-allowed"
             >
                 <SearchIcon className="size-5 text-gray-500" />
             </button>
         </form>
-    )
-}
+    );
+};
