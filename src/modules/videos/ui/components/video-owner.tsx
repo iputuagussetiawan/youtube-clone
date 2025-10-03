@@ -13,7 +13,7 @@ interface VideoOwnerProps {
 }
 
 const VideoOwner = ({ user, videoId }:VideoOwnerProps) => {
-    const {userId:clerkUserId}=useAuth();
+    const {userId:clerkUserId, isLoaded}=useAuth();
     const {isPending, onClick}=useSubscription({
         userId:user.id,
         isSubscribed:user.viewerSubscribed,
@@ -44,7 +44,7 @@ const VideoOwner = ({ user, videoId }:VideoOwnerProps) => {
             ):(
                 <SubscriptionButton 
                     onClick={onClick}
-                    disabled={isPending}
+                    disabled={isPending || !isLoaded}
                     isSubscribed={user.viewerSubscribed}
                     className="flex-none"
                 />
