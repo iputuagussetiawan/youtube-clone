@@ -3,9 +3,10 @@ import { CommentsGetManyOutput } from "../../types";
 
 interface CommentItemProps {
     comment: CommentsGetManyOutput["items"][number];
+    variant?: "comment" | "reply";
 }   
 
-import React from 'react'
+import React, { useState } from 'react'
 import UserAvatar from "@/components/user-avatar";
 import { formatDistanceToNow } from "date-fns";
 import { trpc } from "@/trpc/client";
@@ -15,8 +16,11 @@ import { MessageSquareIcon, MoreVerticalIcon, ThumbsDownIcon, ThumbsUpIcon, Tras
 import { useAuth, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import CommentForm from "./comment-form";
 
-const CommentItem = ({comment}:CommentItemProps) => {
+const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
+    const [isReplayOpen, setIsReplayOpen] = useState(false);
+    const [isRepliesOpen, setIsRepliesOpen] = useState(false);
     const clerk=useClerk();
     const {userId}=useAuth();
     const utils=trpc.useUtils();
@@ -97,6 +101,16 @@ const CommentItem = ({comment}:CommentItemProps) => {
                             </Button>
                             <span className="text-xs text-muted-foreground">{comment.dislikeCount}</span>
                         </div>
+                        {variant==="comment" && (
+                            <Button 
+                                variant={"ghost"} 
+                                size={"sm"} 
+                                className="h-8" 
+                                onClick={() => setIsReplayOpen(true)}
+                            >
+                                Replay
+                            </Button>
+                        )}
                     </div>
                 </div>
                 <DropdownMenu>
@@ -106,10 +120,12 @@ const CommentItem = ({comment}:CommentItemProps) => {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => {}}>
-                            <MessageSquareIcon className="size-4" />
-                            Replay
-                        </DropdownMenuItem>
+                        {variant==="comment" && (    
+                            <DropdownMenuItem onClick={() => setIsReplayOpen(true)}>
+                                <MessageSquareIcon className="size-4" />
+                                Replay
+                            </DropdownMenuItem>
+                        )}
                         {
                             comment.user.clerkId === userId && (
                                 <DropdownMenuItem onClick={() => remove.mutate({id:comment.id})}>
@@ -121,6 +137,21 @@ const CommentItem = ({comment}:CommentItemProps) => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
+
+            {isReplayOpen && variant==="comment" && (
+                <div className="mt-4 pl-14">
+                    <CommentForm
+                        variant="reply"
+                        parentId={comment.id}
+                        videoId={comment.videoId}
+                        onCancel={() => setIsReplayOpen(false)}
+                        onSuccess={() => {
+                            setIsReplayOpen(false);
+                            setIsRepliesOpen(true)
+                        }}
+                    />
+                </div>  
+            )}
         </div>
     )
 }

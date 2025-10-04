@@ -31,16 +31,37 @@ export const commentsRouter = createTRPCRouter({
     }),
     create: protectedProcedure
     .input(z.object({
+        parentId:z.string().nullish(),
         videoId:z.uuid(), 
         value:z.string()}))
     .mutation(async ({ctx, input}) => {
         const {id:userId} = ctx.user;
-        const {videoId, value} = input;
+        const {videoId, parentId, value} = input;
+
+        //check if parent comment exists
+        const [existingComment]=await db
+        .select()
+        .from(comments)
+        .where(
+            inArray(comments.id,parentId?[parentId]:[])
+        )
+
+        //check if parent comment exists
+        if(!existingComment && parentId){
+            throw new TRPCError({code:"NOT_FOUND"})
+        }
+        
+        //check if child comment exists
+        if(existingComment?.parentId && parentId){
+            throw new TRPCError({code:"NOT_FOUND"})
+        }
+
         const [createdComment] = await db
         .insert(comments)
         .values({
             userId,
             videoId,
+            parentId,
             value
         })
         .returning();

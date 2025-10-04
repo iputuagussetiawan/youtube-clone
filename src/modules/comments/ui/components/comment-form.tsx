@@ -15,18 +15,24 @@ import { Loader, Loader2 } from "lucide-react";
 
 interface CommentFormProps {
     videoId: string;
-    onSuccess?: () => void
+    parentId?: string;
+    onSuccess?: () => void;
+    onCancel?: () => void;
+    variant?: "comment" | "reply";  
 }
 
 const formSchema = z.object({
     videoId: z.string(),
+    parentId: z.string().nullish(),
     value: z.string().min(2, {
         message: "message must be at least 2 characters.",
     }),
 })
 
 
-const CommentForm = ({ videoId, onSuccess}: CommentFormProps) => {
+
+
+const CommentForm = ({ videoId, parentId, onSuccess, onCancel, variant="comment"}: CommentFormProps) => {
     const clerk=useClerk();
     const utils=trpc.useUtils();
     const create=trpc.comments.create.useMutation({
@@ -48,6 +54,7 @@ const CommentForm = ({ videoId, onSuccess}: CommentFormProps) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            parentId: parentId,
             videoId,
             value:""
         }
@@ -56,6 +63,11 @@ const CommentForm = ({ videoId, onSuccess}: CommentFormProps) => {
     const handleSubmit=async(data:z.infer<typeof formSchema>) => {
         console.log(data)
         create.mutate(data);
+    }
+
+    const handleCancel = () => {
+        form.reset();
+        onCancel?.();   
     }
     return (
         <Form {...form}>
@@ -72,18 +84,27 @@ const CommentForm = ({ videoId, onSuccess}: CommentFormProps) => {
                         render={({ field }) => (
                             <FormItem>
                             <FormControl>
-                                <Textarea {...field} className="resize-none bg-transparent overflow-hidden min-h-0" placeholder="Add a comment..." />
+                                <Textarea 
+                                    {...field} 
+                                    className="resize-none bg-transparent overflow-hidden min-h-15" 
+                                    placeholder={variant === "reply" ? "Reply to this comment... " : "Add a comment..."} 
+                                />
                             </FormControl>
                             <FormMessage />
                             </FormItem>
                         )}
                     />
                     <div className="justify-end gap-2 mt-2 flex">
+                        {onCancel &&(
+                            <Button type="button" variant={"ghost"} size={"sm"} onClick={handleCancel}>
+                                Cancel
+                            </Button>
+                        )}
                         <Button disabled={create.isPending} type="submit" size={"sm"}>
                             {create.isPending ?(<Loader2 className="animate-spin" />):(""
                             ) }
                             
-                            <span>Comment</span>
+                            <span>{variant === "reply" ? "Reply" : "Comment"}</span>
                         </Button>
                     </div>
                 </div>
