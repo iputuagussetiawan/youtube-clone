@@ -12,11 +12,12 @@ import { formatDistanceToNow } from "date-fns";
 import { trpc } from "@/trpc/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MessageSquareIcon, MoreVerticalIcon, ThumbsDownIcon, ThumbsUpIcon, Trash, Trash2Icon } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon, MessageSquareIcon, MoreVerticalIcon, ThumbsDownIcon, ThumbsUpIcon, Trash, Trash2Icon } from "lucide-react";
 import { useAuth, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import CommentForm from "./comment-form";
+import { Chevron } from "react-day-picker";
 
 const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
     const [isReplayOpen, setIsReplayOpen] = useState(false);
@@ -156,7 +157,10 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
             {comment.replayCount > 0 && variant==="comment" && (
                 <div className="pl-14">
                     <Button
+                        size={"sm"}
+                        onClick={() => setIsRepliesOpen((current)=> !current)}
                     >
+                        {isRepliesOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
                         {comment.replayCount} replies
                     </Button>
                 </div>
