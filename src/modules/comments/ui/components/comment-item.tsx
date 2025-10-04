@@ -152,6 +152,15 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
                     />
                 </div>  
             )}
+
+            {comment.replayCount > 0 && variant==="comment" && (
+                <div className="pl-14">
+                    <Button
+                    >
+                        {comment.replayCount} replies
+                    </Button>
+                </div>
+            )}
         </div>
     )
 }
