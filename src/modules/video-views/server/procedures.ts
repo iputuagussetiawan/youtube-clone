@@ -1,7 +1,6 @@
 import { db } from "@/db";
 import { videoViews } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { vi } from "date-fns/locale";
 import { and, eq } from "drizzle-orm";
 import z from "zod";
 
