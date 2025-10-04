@@ -104,14 +104,23 @@ export const commentsRouter = createTRPCRouter({
                     count:count()
                 })
                 .from(comments)
-                .where(eq(comments.videoId,videoId)),
-
+                .where(
+                    and(
+                        eq(comments.videoId,videoId),
+                        //view for comment with no parent use isnull()
+                        isNull(comments.parentId)
+                    )       
+                ),
                 db
                     .with(viewerReactions)
                     .select({
                     ...getTableColumns(comments),
                     user:users,
                     viewerReaction:viewerReactions.type,
+                    replayCount:db.$count(
+                        comments, 
+                        eq(comments.id,comments.parentId)
+                    ),
                     likeCount:db.$count(commentReactions,
                         and(
                             eq(commentReactions.commentId,comments.id),
