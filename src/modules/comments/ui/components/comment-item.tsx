@@ -32,6 +32,32 @@ const CommentItem = ({comment}:CommentItemProps) => {
             }
         },
     });
+
+    const like=trpc.commentReactions.like.useMutation({
+        onSuccess: () => {
+            toast.success("Comment liked");
+            utils.comments.getMany.invalidate({videoId:comment.videoId});
+        },
+        onError: (error) => {
+            toast.error("Something went wrong");
+            if (error.data?.code === "UNAUTHORIZED") {
+                clerk.openSignIn();
+            }
+        },
+    })
+
+    const dislike=trpc.commentReactions.dislike.useMutation({
+        onSuccess: () => {
+            toast.success("Comment disliked");
+            utils.comments.getMany.invalidate({videoId:comment.videoId});
+        },
+        onError: (error) => {
+            toast.error("Something went wrong");
+            if (error.data?.code === "UNAUTHORIZED") {
+                clerk.openSignIn();
+            }
+        },
+    })
     return (
         <div>
             <div className="flex gap-4">
@@ -51,21 +77,21 @@ const CommentItem = ({comment}:CommentItemProps) => {
                     <div className="flex items-center gap-2 mt-1">
                         <div className="flex items-center">
                             <Button
-                            disabled={false}
+                            disabled={like.isPending}
                             variant={"ghost"}
                             size={"icon"}
                             className="size-8"
-                            onClick={() => {}}
+                            onClick={() => like.mutate({commentId:comment.id})}
                             >
                                 <ThumbsUpIcon className={cn(comment.viewerReaction === "LIKE" ? "fill-black" : "")} />
                             </Button> 
                             <span className="text-xs text-muted-foreground">{comment.likeCount}</span>
                             <Button
-                            disabled={false}
+                            disabled={dislike.isPending}
                             variant={"ghost"}
                             size={"icon"}
                             className="size-8"
-                            onClick={() => {}}
+                            onClick={() => dislike.mutate({commentId:comment.id})}
                             >
                                 <ThumbsDownIcon className={cn(comment.viewerReaction === "DISLIKE" ? "fill-black" : "")} />
                             </Button>
