@@ -9,6 +9,8 @@ interface PageProps {
 const page =async ({params}:PageProps) => {
     const {videoId} = await params
     void trpc.videos.getOne.prefetch({id:videoId});
+    //TODO: prefetchInfinite comments
+    void trpc.comments.getMany.prefetch({videoId:videoId});
     return (
         <HydrateClient>
             <VideoView videoId={videoId}/>
