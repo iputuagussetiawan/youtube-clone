@@ -11,9 +11,10 @@ import { formatDistanceToNow } from "date-fns";
 import { trpc } from "@/trpc/client";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MessageSquareIcon, MoreVerticalIcon, Trash, Trash2Icon } from "lucide-react";
+import { MessageSquareIcon, MoreVerticalIcon, ThumbsDownIcon, ThumbsUpIcon, Trash, Trash2Icon } from "lucide-react";
 import { useAuth, useClerk } from "@clerk/nextjs";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 const CommentItem = ({comment}:CommentItemProps) => {
     const clerk=useClerk();
@@ -47,7 +48,30 @@ const CommentItem = ({comment}:CommentItemProps) => {
                     </div>
                     </Link>
                     <p className="text-sm">{comment.value}</p>
-                    
+                    <div className="flex items-center gap-2 mt-1">
+                        <div className="flex items-center">
+                            <Button
+                            disabled={false}
+                            variant={"ghost"}
+                            size={"icon"}
+                            className="size-8"
+                            onClick={() => {}}
+                            >
+                                <ThumbsUpIcon className={cn(comment.viewerReaction === "LIKE" ? "fill-black" : "")} />
+                            </Button> 
+                            <span className="text-xs text-muted-foreground">{comment.likeCount}</span>
+                            <Button
+                            disabled={false}
+                            variant={"ghost"}
+                            size={"icon"}
+                            className="size-8"
+                            onClick={() => {}}
+                            >
+                                <ThumbsDownIcon className={cn(comment.viewerReaction === "DISLIKE" ? "fill-black" : "")} />
+                            </Button>
+                            <span className="text-xs text-muted-foreground">{comment.dislikeCount}</span>
+                        </div>
+                    </div>
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
