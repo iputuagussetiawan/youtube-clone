@@ -70,6 +70,7 @@ export const commentsRouter = createTRPCRouter({
     getMany:baseProcedure
         .input(z.object({
             videoId:z.uuid(),
+            parentId:z.string().nullish(),
             cursor:z.object({
                 id:z.uuid(),
                 updatedAt:z.date()
@@ -78,7 +79,7 @@ export const commentsRouter = createTRPCRouter({
         }))
         .query(async ({input, ctx}) => {
             const {clerkUserId}=ctx;
-            const {videoId, cursor, limit} = input;
+            const {videoId,parentId, cursor, limit} = input;
 
             let userId;
 
@@ -147,6 +148,9 @@ export const commentsRouter = createTRPCRouter({
                 .from(comments)
                 .where(and(
                     eq(comments.videoId,videoId),
+
+                    parentId?
+                    eq(comments.parentId,parentId):
                     //view for comment with no parent use isnull()
                     isNull(comments.parentId),
                     cursor

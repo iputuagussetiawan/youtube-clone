@@ -2,7 +2,6 @@ import { db } from "@/db";
 import { subscriptions } from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
-import { th } from "date-fns/locale";
 import { and, eq } from "drizzle-orm";
 import z from "zod";
 

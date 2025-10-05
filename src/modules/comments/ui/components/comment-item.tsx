@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import CommentForm from "./comment-form";
 import { Chevron } from "react-day-picker";
+import CommentReplies from "./comment-replies";
 
 const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
     const [isReplayOpen, setIsReplayOpen] = useState(false);
@@ -67,7 +68,7 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
         <div>
             <div className="flex gap-4">
                 <Link href={`/users/${comment.userId}`}>
-                    <UserAvatar size="lg" imageUrl={comment.user.imageUrl} name={comment.user.name} />
+                    <UserAvatar size={variant==="comment" ? "lg" : "sm"} imageUrl={comment.user.imageUrl} name={comment.user.name} />
                 </Link>
                 <div className="flex-1 min-w-0">
                     <Link href={`/users/${comment.userId}`}>
@@ -121,12 +122,10 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                        {variant==="comment" && (    
-                            <DropdownMenuItem onClick={() => setIsReplayOpen(true)}>
-                                <MessageSquareIcon className="size-4" />
-                                Replay
-                            </DropdownMenuItem>
-                        )}
+                        <DropdownMenuItem onClick={() => setIsReplayOpen(true)}>
+                            <MessageSquareIcon className="size-4" />
+                            Replay
+                        </DropdownMenuItem>
                         {
                             comment.user.clerkId === userId && (
                                 <DropdownMenuItem onClick={() => remove.mutate({id:comment.id})}>
@@ -158,6 +157,7 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
                 <div className="pl-14">
                     <Button
                         size={"sm"}
+                        variant={"tertiary"}
                         onClick={() => setIsRepliesOpen((current)=> !current)}
                     >
                         {isRepliesOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
@@ -165,6 +165,15 @@ const CommentItem = ({comment, variant="comment"}:CommentItemProps) => {
                     </Button>
                 </div>
             )}
+
+            {
+                comment.replayCount > 0 && variant ==="comment" && isRepliesOpen && (
+                    <CommentReplies
+                        parentId={comment.id}
+                        videoId={comment.videoId}
+                    />
+                )
+            }
         </div>
     )
 }
