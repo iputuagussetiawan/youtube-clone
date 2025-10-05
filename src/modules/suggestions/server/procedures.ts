@@ -48,8 +48,6 @@ export const suggestionsRouter = createTRPCRouter({
                 })
                 .from(videos)
                 .innerJoin(users, eq(videos.userId, users.id))
-                // .innerJoin(videoReactions, eq(videos.id, videoReactions.videoId))
-                // .innerJoin(videoViews, eq(videos.id, videoViews.videoId))
                 .where(
                     and(
                         existingVideo.categoryId

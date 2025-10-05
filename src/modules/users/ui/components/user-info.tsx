@@ -38,7 +38,7 @@ const UserInfo = ({
                 <TooltipTrigger asChild>
                     <p className='text-gray-500 hover:text-gray-500 line-clamp-1'>{name}</p>
                 </TooltipTrigger>
-                <TooltipContent align='center' className='bg-black/70'>
+                <TooltipContent align='center' className='bg-black'>
                     <p>
                     {name}
                     </p>
